@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_margin="16dp"
+        android:id="@+id/imgUser"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="120dp"
+        android:layout_height="120dp" />
+
+    <TextView
+        android:textSize="18sp"
+        android:id="@+id/txtName"
+        android:layout_margin="20dp"
+        app:layout_constraintLeft_toRightOf="@id/imgUser"
+        app:layout_constraintTop_toTopOf="@id/imgUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@id/imgUser"
+        app:layout_constraintTop_toBottomOf="@id/txtName"
+        android:layout_margin="20dp"
+        android:id="@+id/txtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_ViewMore"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgUser"
+        android:text="View More"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+<LinearLayout
+    android:id="@+id/ll_viewMore"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:visibility="gone"
+    app:layout_constraintTop_toBottomOf="@id/btn_ViewMore"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true">
+    <TextView
+        android:id="@+id/txtMoreData"
+        android:text="Joel Kanyi is a Computer Science student at Kibabii University. He is a mobile apps developer who loves exploring different technologies related to mobile applications."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
