@@ -1,6 +1,7 @@
 package com.example.retrofitapp
 
 import UserListResponse
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -22,7 +23,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-       getAllUser()
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager =
+            LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+
+        getAllUser()
        // getUserById()
         getNewUser()
 
@@ -34,7 +39,12 @@ class MainActivity : AppCompatActivity() {
                 val userListResponse: UserListResponse = ApiService.retrofit.getAllList()
                 Log.e("Api Calls" , "${userListResponse.toString()}")
                 UserList = userListResponse.data as ArrayList<User>
-                initRecyclerViewAdapter()
+                // UserList = userListResponse.data as ArrayList<User>
+                adatperUser = AdatperUser(UserList)
+                recyclerView.adapter = adatperUser
+
+                adatperUser.setOnclickListener= SetOnClickListener()
+
             }
         }catch (e:Exception){
             Log.e("Api calls","${e.message}")
@@ -47,8 +57,13 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 val userListResponse : UserListResponse = ApiService.retrofit.getAllList(2)
                 Log.e("Api Calls", "${userListResponse.toString()}")
-               UserList = userListResponse.data as ArrayList<User>
-                initRecyclerViewAdapter()
+              // UserList = userListResponse.data as ArrayList<User>
+                adatperUser = AdatperUser(UserList)
+                recyclerView.adapter = adatperUser
+
+                adatperUser.setOnclickListener= SetOnClickListener()
+
+
                 // Handle the response or do further processing
             }
         } catch (e: Exception) {
@@ -73,18 +88,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-       private  fun initRecyclerViewAdapter(){
-
-        recyclerView = findViewById(R.id.recyclerView)
-           adatperUser = AdatperUser(UserList)
-
-           recyclerView.layoutManager =
-               LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-
-           recyclerView.adapter = adatperUser
-
+    inner class SetOnClickListener : AdatperUser.SetOnclickListener{
+        override fun setOnClick(position: Int) {
+            val intent  = Intent(this@MainActivity,HomeAcivity::class.java)
+            startActivity(intent)
+        }
 
     }
+
+
 
 }
 

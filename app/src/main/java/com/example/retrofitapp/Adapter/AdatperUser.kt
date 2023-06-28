@@ -6,21 +6,30 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.example.retrofitapp.DataModel.NewUserResponse
 import com.example.retrofitapp.DataModel.User
 
 
 import com.example.retrofitapp.R
 import com.example.retrofitapp.databinding.UserViewBinding
 import com.squareup.picasso.Picasso
-import java.net.UnknownServiceException
 
 class AdatperUser(val UserList: ArrayList<User>) : RecyclerView.Adapter<AdatperUser.UserViewHolder>() {
 
+      interface SetOnclickListener{
+          fun setOnClick(position: Int)
+      }
+     var setOnclickListener : SetOnclickListener? = null
+
+    fun setOnClickListener(listener: SetOnclickListener){
+        setOnclickListener = listener
+    }
     inner class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding: UserViewBinding
 
         init {
+            view.setOnClickListener{
+                setOnclickListener?.setOnClick(adapterPosition)
+            }
             binding = UserViewBinding.bind(view)
         }
     }
